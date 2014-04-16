@@ -119,4 +119,87 @@ class WP4C_Recent_Sermons extends WP_Widget {
 }
 add_action( 'widgets_init', create_function('', 'return register_widget("WP4C_Recent_Sermons");') );
 
+
+/* Enhanced Sermon Widget */
+// This should be merged into the existing widget
+
+add_action('admin_enqueue_scripts', 'wpfc_admin_load_scripts');	
+function wpfc_admin_load_scripts($hook) {
+	if( $hook != 'widgets.php' ) 
+		return;
+	wp_enqueue_script('sermon-admin-widget', SM_PLUGIN_URL.'includes/js/admin-widget.js', array('jquery'));
+}
+	
+class Posts_From_Sermons extends WP_Widget {
+
+    public function __construct() {
+      $widget_ops = array( 'classname'=>'postfromsermons', 'description'=>'Display a list of the most recent sermons.' );
+      $control_ops = array( 'width'=>250, 'height'=>250, 'id_base'=>'postfromsermons_id' );
+      $this->WP_Widget( 'postfromsermons_id', 'Recent Sermons', $widget_ops, $control_ops );
+	}
+	
+    function form( $instance ) {
+      $this->taxonomies = get_object_taxonomies( 'wpfc_sermon', 'objects' );
+      $defaults = array('taxonomy'=>'none', 'term'=>array() );
+      $instance = wp_parse_args( (array) $instance, $defaults );
+      extract( $instance );
+?>
+      <p> 
+        <label for="<?php echo $this->get_field_id('taxonomy'); ?>"><?php echo 'Select a taxonomy:'; ?></label> 
+        <select class="posts_sermon_class" name="<?php echo $this->get_field_name('taxonomy'); ?>" id="<?php echo $this->get_field_id('taxonomy'); ?>">
+          <option value="none" <?php echo 'none' == $instance['taxonomy'] ? ' selected="selected"' : ''; ?>><?php echo 'Ignore Taxonomy &amp; Term'; ?></option>
+          <?php
+
+            foreach ($this->taxonomies as $option) {
+              echo '<option value="' . $option->name . '"', $instance['taxonomy'] == $option->name ? ' selected="selected"' : '', '>', $option->label, '</option>';
+            }
+          ?>
+        </select>   
+      </p>
+    <div class="total_term_div">
+      <label>Select Terms:</label>
+      <?php foreach ($this->taxonomies as $option) { ?>
+        <div class="taxonomy-<?php echo $option->name; ?> terms_div_class" id="terms_div_id"  style="display:none;">
+          <ul>
+            <?php 
+              $terms = get_terms( $option->name, array('hide_empty'=>0) );
+              foreach($terms as $term) {
+            ?>
+                <li>
+                  <input type="checkbox" name="<?php echo $this->get_field_name('term'); ?>[]" value="<?php echo esc_attr( $term->slug ); ?>" /><?php echo $term->name; ?>
+                </li>
+            <?php } ?>
+          </ul>
+        </div>
+
+      <?php } ?>
+    </div>
+<?php
+     
+    }
+
+    function update( $new_instance, $old_instance ) {
+      foreach($_REQUEST['widget-postfromsermons_id'] as $key=>$value) {
+        foreach($value['term'] as $val_term) {
+          $new_terms[] = $val_term;
+        }
+      }
+      $instance = $old_instance;
+      $instance['taxonomy'] = $new_instance['taxonomy'];
+      $instance['term'] = $new_terms;
+      return $instance;
+    }
+
+  function widget( $args, $instance ) {
+
+   /* extract( $args ); */
+    
+  }
+}
+// This is not how it should be done. Please see how I did it in the original widget above.
+function wpfc_posts_from_sermons_widgets() {
+  register_widget( 'Posts_From_Sermons' );
+}
+add_action( 'widgets_init', 'wpfc_posts_from_sermons_widgets' );
+
 ?>
