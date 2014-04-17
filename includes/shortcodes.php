@@ -7,8 +7,7 @@
  */
  
 // List all series or speakers in a simple unordered list
-add_shortcode('list_sermons', 'wpfc_list_sermons_shortcode'); //preferred markup
-add_shortcode('list-sermons', 'wpfc_list_sermons_shortcode'); //left for compatibility
+add_shortcode('list-sermons', 'wpfc_list_sermons_shortcode');
 function wpfc_list_sermons_shortcode( $atts = array () ){
 	extract( shortcode_atts( array(
 		'tax' => 'wpfc_sermon_series', // options: wpfc_sermon_series, wpfc_preacher, wpfc_sermon_topics, wpfc_bible_book
@@ -29,8 +28,7 @@ function wpfc_list_sermons_shortcode( $atts = array () ){
 }
  
 // Display all series or speakers in a grid of images
-add_shortcode('sermon_images', 'wpfc_display_images_shortcode'); //preferrred markup
-add_shortcode('sermon-images', 'wpfc_display_images_shortcode'); //left for compatibility
+add_shortcode('sermon-images', 'wpfc_display_images_shortcode');
 function wpfc_display_images_shortcode( $atts = array () ) {
 	extract( shortcode_atts( array(
 		'tax' => 'wpfc_sermon_series', // options: wpfc_sermon_series, wpfc_preacher, wpfc_sermon_topics
@@ -107,6 +105,8 @@ function wpfc_get_latest_series_image_id ( $latest_series = 0 ) {
 add_shortcode( 'latest_series', 'wpfc_get_latest_series_image' );
 function wpfc_get_latest_series_image ( $atts ) {
 	extract( shortcode_atts( array(
+		'after'     	=> '',
+		'before'		=> '',
 		'image_class'	=> 'latest-series-image',
 		'size'			=> 'large',
 		'show_title'	=> true,
@@ -114,10 +114,10 @@ function wpfc_get_latest_series_image ( $atts ) {
 		'title_class'	=> 'latest-series-title',
 		'service_type'	=> '', //use the service type slug
 		'show_desc'		=> false,
-		'wrapper_class' => 'latest-series',
+		'wrapper_class'	=> 'latest-series'
 	), $atts, 'latest_series' ) );
 	
-	$latest_sermon = wpfc_get_latest_sermon( isset($service_type) );
+	$latest_sermon = wpfc_get_latest_sermon( $service_type );
 	$latest_series = wpfc_get_latest_series( $latest_sermon );
 	$series_link = get_term_link( $latest_series, 'wpfc_sermon_series' );
 	$series_image_id = wpfc_get_latest_series_image_id ( $latest_series );
@@ -126,14 +126,17 @@ function wpfc_get_latest_series_image ( $atts ) {
 		return;
 	}
 	$image_size = sanitize_key( $size );
-	$image_class = sanitize_html_class( $image_class );
+	$image_class = sanitize_text_field( $image_class );
 	$show_title = wpfc_sanitize_bool( $show_title );
 	$title_wrapper = sanitize_text_field( $title_wrapper );
 	$wrapper_options = array( 'p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div' );
         if( ! in_array( $title_wrapper, $wrapper_options ) )
                 $title_wrapper = 'h3';
-	$title_class = sanitize_html_class( $title_class );
+	$title_class = sanitize_text_field( $title_class );
 	$show_desc = wpfc_sanitize_bool( $show_desc );
+	
+	$before = sanitize_text_field( $before ); 
+	$after = sanitize_text_field( $after );
 	
 	$link_open = '<a href="' . $series_link . '" title="' . $latest_series->name . '" alt="' . $latest_series->name . '">';
 	$link_close = '</a>';
@@ -148,10 +151,6 @@ function wpfc_get_latest_series_image ( $atts ) {
 	if( $show_desc ) {
 		$description = '<div class="latest-series-description">' . wpautop( $latest_series->description ) . '</div>'; 
 	}
-	
-	$wrapper_class = sanitize_html_class( $wrapper_class );
-	$before = '<div class="' . $wrapper_class . '">';
-	$after = '</div>';
 	
 	$output = $before . $link_open . $image . $title . $link_close . $description . $after;
 		return $output;
@@ -182,7 +181,7 @@ function wpfc_display_sermons_shortcode($atts) {
 		'image_size' => 'sermon_small',
 		'tax_operator' => 'IN'
 	), $atts, 'sermons' ) );
-	// pagination
+	// begin - code from : http://wordpress.org/support/topic/wp-pagenavi-with-custom-query-and-paged-variable?replies=2
 		global $paged;
 		if( get_query_var( 'paged' ) )
 			$my_page = get_query_var( 'paged' );
@@ -194,7 +193,7 @@ function wpfc_display_sermons_shortcode($atts) {
 		set_query_var( 'paged', $my_page );
 		$paged = $my_page;
 		}
-	// pagination end
+	// - end
 	$args = array(
 		'post_type' => 'wpfc_sermon',
 		'posts_per_page' => $posts_per_page,

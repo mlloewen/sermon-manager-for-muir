@@ -3,7 +3,7 @@
 Plugin Name: Sermon Manager for WordPress
 Plugin URI: http://www.wpforchurch.com/products/sermon-manager-for-wordpress/
 Description: Add audio and video sermons, manage speakers, series, and more. Visit <a href="http://wpforchurch.com" target="_blank">Wordpress for Church</a> for tutorials and support.
-Version: 1.9.2
+Version: 1.8.3
 Author: Jack Lamb
 Author URI: http://www.wpforchurch.com/
 License: GPL2
@@ -65,6 +65,9 @@ require_once plugin_dir_path( __FILE__ ) . '/includes/podcast-functions.php';
 if ( is_admin() )
 require_once plugin_dir_path( __FILE__ ) . '/includes/admin-functions.php';
 
+// Load Sermons Manager Widget
+require_once plugin_dir_path( __FILE__ ) . '/includes/sermon-manager-widget.php'; //\\
+
 // Add filter for custom search: includes bible_passage, sermon_description in WordPress search
 function wpfc_sermon_search_query( $query ) {
 	if ( !is_admin() && $query->is_search ) {
@@ -96,6 +99,11 @@ function add_wpfc_js() {
 	wp_register_script('bibly-script', 'http://code.bib.ly/bibly.min.js', false, null );
 	wp_register_style('bibly-style', 'http://code.bib.ly/bibly.min.css', false, null );
 	
+	// Load them as needed
+	if ('wpfc_sermon' == get_post_type() ) {
+			wp_enqueue_script('mediaelement');
+			wp_enqueue_style('mediaelement');
+	}
 	$sermonoptions = get_option('wpfc_options');
 	if (is_single() && 'wpfc_sermon' == get_post_type() && !isset($sermonoptions['bibly']) == '1') { 
 		wp_enqueue_script('bibly-script');
