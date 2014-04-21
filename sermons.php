@@ -65,9 +65,6 @@ require_once plugin_dir_path( __FILE__ ) . '/includes/podcast-functions.php';
 if ( is_admin() )
 require_once plugin_dir_path( __FILE__ ) . '/includes/admin-functions.php';
 
-// Load Sermons Manager Widget
-require_once plugin_dir_path( __FILE__ ) . '/includes/sermon-manager-widget.php'; //\\
-
 // Add filter for custom search: includes bible_passage, sermon_description in WordPress search
 function wpfc_sermon_search_query( $query ) {
 	if ( !is_admin() && $query->is_search ) {
@@ -192,5 +189,16 @@ if(!function_exists('_log')){
         }
     }
 }
+
+
+
+function wpfc_tabber() {
+	wp_register_style('wpfc-tabber-style', plugins_url('/css/wpfc-tabber-style.css', __FILE__));
+	wp_register_script('wpfc-tabber-widget-js', plugins_url('/js/wpfc-tabber.js', __FILE__), array('jquery'));
+	wp_enqueue_style('wpfc-tabber-style');
+	wp_enqueue_script('wpfc-tabber-widget-js');
+}
+add_action( 'admin_enqueue_scripts', 'wpfc_tabber' ); 
+
 
 ?>

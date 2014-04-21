@@ -89,6 +89,7 @@ class WP4C_Recent_Sermons extends WP_Widget {
 	}
 
 	function update( $new_instance, $old_instance ) {
+		$tax_names = get_taxonomies( array( 'public' => true ), 'names' );
 		$instance = $old_instance;
 		$instance['title'] = strip_tags($new_instance['title']);
 		$instance['number'] = (int) $new_instance['number'];
@@ -98,6 +99,8 @@ class WP4C_Recent_Sermons extends WP_Widget {
 		if ( isset($alloptions['widget_recent_entries']) )
 			delete_option('widget_recent_entries');
 
+		$instance['taxonomy'] = $new_instance['taxonomy'];
+		$instance['term'] = $new_instance['term'];
 		return $instance;
 	}
 
@@ -105,15 +108,80 @@ class WP4C_Recent_Sermons extends WP_Widget {
 		wp_cache_delete('widget_recent_sermons', 'widget');
 	}
 
+	
 	function form( $instance ) {
-		$title = isset($instance['title']) ? esc_attr($instance['title']) : '';
-		$number = isset($instance['number']) ? absint($instance['number']) : 5;
+		$this->taxonomies = get_object_taxonomies( 'wpfc_sermon', 'objects' );
+	  	$defaults = array('taxonomy'=>'none', 'term'=>array() );
+	    $instance = wp_parse_args( (array) $instance, $defaults );
+	    extract( $instance );
 ?>
-		<p><label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Title:'); ?></label>
-		<input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo $title; ?>" /></p>
+		<ul class="tabs">
+			<li class="active"><a href="#tab1">Tab 1</a></li>
+			<li><a href="#tab2">Tab 2</a></li>
+			<li><a href="#tab3">Tab 3</a></li>
+		</ul>
+	 
+		<div class="tab_container">
+		 
+			<div id="tab1" class="tab_content">
+				<p> 
+			        <label for="<?php echo $this->get_field_id('taxonomy'); ?>"><?php _e('Select a taxonomy:','sermon-manager'); ?></label> 
+			        <select class="posts_sermon_class" name="<?php echo $this->get_field_name('taxonomy'); ?>" id="<?php echo $this->get_field_id('taxonomy'); ?>">
+			          <option value="none" <?php echo 'none' == $instance['taxonomy'] ? ' selected="selected"' : ''; ?>><?php _e('Ignore Taxonomy &amp; Term','sermon-manager'); ?></option>
+			          <?php
+			            foreach ($this->taxonomies as $option) {
+			              echo '<option value="' . $option->name . '"', $instance['taxonomy'] == $option->name ? ' selected="selected"' : '', '>', $option->label, '</option>';
+			            }
+			          ?>
+			        </select>   
+		      	</p>
+		      	<?php $ter= $instance['term'];
+		      	 ?>
+			    <div class="total_term_div">
+			      <label><?php _e('Select Terms:','sermon-manager'); ?></label>
+			      <?php foreach ($this->taxonomies as $option) { 
+			      		if($instance['taxonomy']==$option->name){
+			      			$display='';
+			      		}else{
+			      			$display='style="display:none;"';
+			      		}
+			      	?>
+			        <div class="taxonomy-<?php echo $option->name; ?> terms_div_class" <?php echo $display; ?> >
+			          <ul>
+			            <?php 
+			              $terms = get_terms( $option->name, array('hide_empty'=>0) );
+			              foreach($terms as $term) {
+			            ?>
+			                <li>
+			                  <input type="checkbox" name="<?php echo $this->get_field_name('term'); ?>[]" value="<?php echo esc_attr( $term->slug ); ?>" <?php echo checked(in_array(esc_attr( $term->slug ), $ter),true, false); ?> /><?php echo $term->name; ?>
+			                </li>
+			            <?php } ?>
+			          </ul>
+			        </div>
+			      <?php } ?>
+			    </div>
+			</div>
+		
+			<div id="tab2" class="tab_content" style="display:none;"></div>
+		 
+			<div id="tab3" class="tab_content" style="display:none;">
+				<?php
+					//echo "Hello Rick you are in tab 3";
+				?>
+				<?php
+					$title = isset($instance['title']) ? esc_attr($instance['title']) : '';
+					$number = isset($instance['number']) ? absint($instance['number']) : 5;
+				?>
+					<p><label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Title:'); ?></label>
+					<input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo $title; ?>" /></p>
 
-		<p><label for="<?php echo $this->get_field_id('number'); ?>"><?php _e('Number of sermons to show:'); ?></label>
-		<input id="<?php echo $this->get_field_id('number'); ?>" name="<?php echo $this->get_field_name('number'); ?>" type="text" value="<?php echo $number; ?>" size="3" /></p>
+					<p><label for="<?php echo $this->get_field_id('number'); ?>"><?php _e('Number of sermons to show:'); ?></label>
+					<input id="<?php echo $this->get_field_id('number'); ?>" name="<?php echo $this->get_field_name('number'); ?>" type="text" value="<?php echo $number; ?>" size="3" /></p>
+			</div>
+		 
+		</div>
+	 
+	<div class="tab-clear"></div>
 <?php
 	}
 }
