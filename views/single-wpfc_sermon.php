@@ -13,8 +13,7 @@ get_header(); ?>
 		<div id="content" role="main">
 			<div id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 			
-				<h1 class="entry-title"><?php the_title(); ?></h1>		
-			
+				<h2 class="entry-title">test<?php the_title(); ?></h2>>		
 				<?php render_wpfc_sermon_single(); ?>
 
 				<div class="entry-utility">

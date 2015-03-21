@@ -1,0 +1,79 @@
+/*----- Tabs -----*/
+.tabs {
+	width:100%;
+	display:inline-block;
+}
+
+.tabs ul {
+	margin: 0 0 1.5em 1em;
+}
+
+/*----- Tab Links -----*/
+/* Clearfix */
+.tab-links:after {
+	display:block;
+	clear:both;
+}
+  /*      content:'';  */ 
+.tab-links li {
+	margin: 0px 5px;
+	margin-bottom: 15px;
+float:left;
+	list-style:none;
+}
+
+        .tab-links a {
+            padding: 9px 5px;
+            display:inline-block;
+            border-radius: 5px 5px 0px 0px;
+ /*           transition:all linear 0.10s;  */
+            border:1px solid #34498a; padding:3px 6px; background:#fff; font-size:14px; text-decoration:none; font-family: 'mistral';
+	font-size: 30px;
+	line-height: 30px;
+	color: #34498a;
+        }
+ 
+        .tab-links a:hover {
+        		color: #34498a;
+            background: #cde0d8;
+            text-decoration:none;
+        }
+ 
+    li.active a, li.active a:hover {
+        background:#cde0d8;
+        color: #34498a;
+    }
+ 
+    /*----- Content of Tabs -----*/
+    .tab-content {
+        padding:10px;
+        border-radius:3px;
+        box-shadow:-1px 1px 1px rgba(0,0,0,0.15);
+        border:1px solid #34498a;
+        background:#fff;
+    }
+ 
+        .tab {
+            display:none;
+        }
+ 
+        .tab.active {
+            display:inline;
+        }
+        
+.tab-title {
+	display: inline;
+}
+@media screen and (min-width: 560px) {
+	.tab-title{
+		display: inline;
+	}
+}
+/*--------------------------------------------------------------
+MEDIUM VIEWPORT
+--------------------------------------------------------------*/
+@media screen and (min-width: 720px) {
+	.tabs ul {
+		margin: 0 0 1.5em 2em;
+	}
+}

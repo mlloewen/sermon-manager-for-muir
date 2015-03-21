@@ -237,10 +237,54 @@ function wpfc_sermon_metaboxes( array $meta_boxes ) {
 			),
 			array(
 				'name' => __('Description', 'sermon-manager'),
-				'desc' => __('Type a brief description about this sermon, an outline, or a full manuscript', 'sermon-manager'),
+				'desc' => __('Type a brief description about this sermon.', 'sermon-manager'),
 				'id'   => 'sermon_description',
+				'type' => 'textarea',
+				/* 'options' => array(	'textarea_rows' => 7, 'media_buttons' => false,), */
+			),
+		),
+	);
+	
+	$meta_boxes[] = array(
+		'id'         => 'wpfc_sermon_data',
+		'title'      => __('Sermon Data', 'sermon-manager'),
+		'pages'      => array( 'wpfc_sermon', ), // Post type
+		'context'    => 'normal',
+		'priority'   => 'high',
+		'show_names' => true, // Show field names on the left
+		'fields'     => array(
+			array(
+				'name' => __('Summary', 'sermon-manager'),
+				'desc' => __('Type a brief summary of this sermon, or an outline', 'sermon-manager'),
+				'id'   => 'sermon_summary',
 				'type' => 'wysiwyg',
-				'options' => array(	'textarea_rows' => 7, 'media_buttons' => false,),
+				'options' => array(	'textarea_rows' => 7, 'media_buttons' => true,),
+			),
+			array(
+				'name' => __('Notes', 'sermon-manager'),
+				'desc' => __('The notes for this sermon, or an outline', 'sermon-manager'),
+				'id'   => 'sermon_notes',
+				'type' => 'wysiwyg',
+				'options' => array(	'textarea_rows' => 7, 'media_buttons' => true,),
+			),
+			array(
+				'name' => __('Study Questions', 'sermon-manager'),
+				'desc' => __('The study Questions for this sermon.', 'sermon-manager'),
+				'id'   => 'sermon_questions',
+				'type' => 'wysiwyg',
+				'options' => array(	'textarea_rows' => 7, 'media_buttons' => true,),
+			),
+			array(
+				'name' => __('Study Questions Word document', 'sermon-manager'),
+				'desc' => __('Upload a word processor file or enter an URL.', 'sermon-manager'),
+				'id'   => 'sermon_docx',
+				'type' => 'file',
+			),
+			array(
+				'name' => __('Study Questions Print pdf', 'sermon-manager'),
+				'desc' => __('Upload a pdf file or enter an URL.', 'sermon-manager'),
+				'id'   => 'sermon_pdf',
+				'type' => 'file',
 			),
 		),
 	);
@@ -278,13 +322,13 @@ function wpfc_sermon_metaboxes( array $meta_boxes ) {
 				'desc' => __('Paste your embed code for Vimeo, Youtube, or other service here', 'sermon-manager'),
 				'id'   => 'sermon_video',
 				'type' => 'textarea',
-			),
-			array(
+			), 
+			/* array(
 				'name' => __('Sermon Notes', 'sermon-manager'),
 				'desc' => __('Upload a pdf file or enter an URL.', 'sermon-manager'),
 				'id'   => 'sermon_notes',
 				'type' => 'file',
-			),
+			), */
 		),
 	);
 	

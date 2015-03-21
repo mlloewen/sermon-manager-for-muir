@@ -88,7 +88,8 @@ function wpfc_podcast_summary ($content) {
 	global $post;
 	//$content = '';
 	$content = strip_tags( get_wpfc_sermon_meta('sermon_description') ); 
-		return $content;
+	//$content = wpautop(do_shortcode( get_wpfc_sermon_meta('sermon_description') ) );
+	return $content;
 }
 
 //Filter published date for podcast: use sermon date instead of post date
@@ -164,13 +165,13 @@ function wpfc_mp3_duration($mp3_url) {
 	if ( ! class_exists( 'getID3' ) ) {
 		require_once WPFC_SERMONS . '/includes/getid3/getid3.php'; 
 	}
-	$filename = tempnam('/tmp','getid3');
-	if (file_put_contents($filename, file_get_contents($mp3_url, false, null, 0, 300000))) {
-		  $getID3 = new getID3;
-		  $ThisFileInfo = $getID3->analyze($filename);
-		  unlink($filename);
-	}
-	$playtime_string = $ThisFileInfo['playtime_string'];
+//	$filename = tempnam('/tmp','getid3');
+//	if (file_put_contents($filename, file_get_contents($mp3_url, false, null, 0, 300000))) {
+//		  $getID3 = new getID3;
+//		  $ThisFileInfo = $getID3->analyze($filename);
+//		  unlink($filename);
+//	}
+//	$playtime_string = $ThisFileInfo['playtime_string'];
 
 		return $playtime_string;
 	

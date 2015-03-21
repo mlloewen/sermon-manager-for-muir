@@ -1,10 +1,10 @@
 <?php
 /*
-Plugin Name: Sermon Manager for WordPress
+Plugin Name: Sermon Manager for Muir Lake
 Plugin URI: http://www.wpforchurch.com/products/sermon-manager-for-wordpress/
 Description: Add audio and video sermons, manage speakers, series, and more. Visit <a href="http://wpforchurch.com" target="_blank">Wordpress for Church</a> for tutorials and support.
 Version: 1.9.3
-Author: Jack Lamb
+Author: Jack Lamb, Matthew Loewen
 Author URI: http://www.wpforchurch.com/
 License: GPL2
 Text Domain: sermon-manager
@@ -93,14 +93,16 @@ function add_wpfc_js() {
 
 	// Register them all!
 	wp_register_style('sermon-styles', plugins_url('/css/sermon.css', __FILE__));
+	wp_register_style('sermon-tabscss', plugins_url('/css/tabs.css', __FILE__));
 	wp_register_script('bibly-script', 'http://code.bib.ly/bibly.min.js', false, null );
 	wp_register_style('bibly-style', 'http://code.bib.ly/bibly.min.css', false, null );
-	
+	wp_register_script('sermon-tabsscript', plugins_url('/js/tabs.js', __FILE__), false, null );
+	wp_enqueue_script('sermon-tabsscript');
+	wp_enqueue_style('sermon-tabscss');
 	$sermonoptions = get_option('wpfc_options');
 	if (is_single() && 'wpfc_sermon' == get_post_type() && !isset($sermonoptions['bibly']) == '1') { 
 		wp_enqueue_script('bibly-script');
-		wp_enqueue_style('bibly-style');
-		
+		wp_enqueue_style('bibly-style'); 
 		// get options for JS
 		$Bibleversion = $sermonoptions['bibly_version'];
 		wp_localize_script( 'bibly-script', 'bibly', array( // pass WP data into JS from this point on

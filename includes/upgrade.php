@@ -4,7 +4,7 @@
  */
 
 function wpfc_plugin_get_version() {
-	$sermon_plugin_data = get_plugin_data( WP_PLUGIN_DIR . '/sermon-manager-for-wordpress/sermons.php' ); 
+	$sermon_plugin_data = get_plugin_data( WP_PLUGIN_DIR . '/sermon-manager-for-muir/sermons.php' ); 
 	$version = $sermon_plugin_data['Version'];
 	return $version;
 }
@@ -21,7 +21,7 @@ add_action('admin_init', 'wpfc_sermon_update_warning');
 function wpfc_sermon_warning_html() {
 	?>
 	<div id='wpfc-sermon-update-warning' class='updated fade'>
-		<?php $wpfc_settings_url = admin_url( 'edit.php?post_type=wpfc_sermon&page=sermon-manager-for-wordpress/includes/options.php'); ?>
+		<?php $wpfc_settings_url = admin_url( 'edit.php?post_type=wpfc_sermon&page=sermon-manager-for-muir/includes/options.php'); ?>
 		<p><strong><?php _e('Sermon Manager is almost ready.', 'sermon-manager');?></strong> <?php _e('You must', 'sermon-manager');?> <a href="<?php echo $wpfc_settings_url; ?>"><?php _e('resave your settings for it to function correctly!!!', 'sermon-manager');?></a></p>
 	</div>
 	<?php

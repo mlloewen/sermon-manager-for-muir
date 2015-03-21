@@ -82,7 +82,7 @@ get_header(); ?>
 									<div class="nav-next"><?php previous_posts_link( __( 'Newer posts <span class="meta-nav">&rarr;</span>', 'sermon-manager' ) ); ?></div>
 								</div><!-- #nav-below -->
 				<?php endif; ?>
-
+		
 				</div><!-- #content -->
 			</div><!-- #container -->
 
