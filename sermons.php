@@ -3,7 +3,7 @@
 Plugin Name: Sermon Manager for Muir Lake
 Plugin URI: http://www.wpforchurch.com/products/sermon-manager-for-wordpress/
 Description: Add audio and video sermons, manage speakers, series, and more. Visit <a href="http://wpforchurch.com" target="_blank">Wordpress for Church</a> for tutorials and support.
-Version: 1.9.3
+Version: 1.9.4
 Author: Jack Lamb, Matthew Loewen
 Author URI: http://www.wpforchurch.com/
 License: GPL2
@@ -42,6 +42,9 @@ require_once plugin_dir_path( __FILE__ ) . 'includes/taxonomy-images/taxonomy-im
 
 // Add Options Page
 require_once plugin_dir_path( __FILE__ ) . '/includes/options.php';
+
+// Add defaults on activation
+register_activation_hook(__FILE__, 'wpfc_add_defaults');
 
 // Add Entry Views Tracking
 require_once plugin_dir_path( __FILE__ ) . '/includes/entry-views.php';

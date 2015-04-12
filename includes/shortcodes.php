@@ -13,8 +13,11 @@ function wpfc_list_sermons_shortcode( $atts = array () ){
 		'order' => 'ASC', // options: DESC
 		'orderby' => 'name', // options: id, count, name, slug, term_group, none
 	), $atts ) );
-	
-	$terms = get_terms($tax);
+	$args = array(
+		'orderby'           => $orderby, 
+		'order'             => $order,
+	); 
+	$terms = get_terms($tax, $args);
  $count = count($terms);
  if ( $count > 0 ){
      $list = '<ul id="list-sermons">';
@@ -258,7 +261,7 @@ function wpfc_display_sermons_shortcode($atts) {
 		<div style="clear:both;"></div>
 
 			<?php wp_reset_postdata(); ?>
-
+			<?php if (!$hide_nav) { ?>
 			<div id="sermon-navigation">
 				<?php
 					$big = 999999;
@@ -270,6 +273,7 @@ function wpfc_display_sermons_shortcode($atts) {
 					) );
 				?>
 			</div>
+			<?php } ?>
 		<div style="clear:both;"></div>
 	</div>
 	</div>
