@@ -90,7 +90,7 @@ function render_wpfc_sermon_archive() {
 				?>
 			</p>
 		</div>
-	</div>		<?php
+	</div>	<?php
 }
 
 // render sermon sorting
@@ -169,7 +169,7 @@ function wpfc_sermon_data() {
 	$data_notes = get_post_meta($post->ID, 'sermon_notes', 'true');
 	$data_questions = get_post_meta($post->ID, 'sermon_questions', 'true');
 	if($data_summary != '' || $data_notes != '' || $data_questions != '') {
-		echo '<div class="tabs"><ul class="tab-links">';
+		echo '<p></p><div class="tabs"><ul class="tab-links">';
 		if ($data_summary != ''){
 			if($active){
 				echo '<li><a href="#summary">Summary</a></li>';
@@ -283,40 +283,48 @@ function render_sermon_image($size) {
 		endif;
 }
 
-// render files section
-function wpfc_sermon_files() {
-	if ( !get_wpfc_sermon_meta('sermon_audio') && !get_wpfc_sermon_meta('sermon_video') && !get_wpfc_sermon_meta('sermon_docx') && !get_wpfc_sermon_meta('sermon_pdf')  ){
-		return;	
-	}	
-	if ( get_wpfc_sermon_meta('sermon_audio') ) {
-		echo '<div class="wpfc_sermon-audio cf">';
-				$mp3_url = get_wpfc_sermon_meta('sermon_audio');
-				$attr = array(
-					'src'      => $mp3_url,
-					'preload' => 'none'
-					);
-				echo wp_audio_shortcode( $attr );
-		echo '</div>';
-	}
-	
-	echo '<div id="wpfc-attachments" class="cf">';
-		echo '<p><strong>'.__( 'Download Files', 'sermon-manager').'</strong>';
-			if ( get_wpfc_sermon_meta('sermon_audio') ) {
-					echo '<a href="' . get_wpfc_sermon_meta('sermon_audio') . '" class="sermon-attachments">'.__( 'MP3', 'sermon-manager').'</a>';
-			}
-			if ( get_wpfc_sermon_meta('sermon_docx') ) {
-					echo '<a href="' . get_wpfc_sermon_meta('sermon_docx') . '" class="sermon-attachments">'.__( 'Study Questions Word(docx)', 'sermon-manager').'</a>';
-			}
-			if ( get_wpfc_sermon_meta('sermon_pdf') ) {
-					echo '<a href="' . get_wpfc_sermon_meta('sermon_pdf') . '" class="sermon-attachments">'.__( 'Study Questions print(pdf)', 'sermon-manager').'</a>';
-			}
-		echo '</p>';
-		echo '</div>';
+/*
+ * render media files section
+ * for template files use 
+ * do_action ('sermon_media'); 
+ *
+ */ 
+add_action ( 'sermon_media', 'wpfc_sermon_media', 5 );
+function wpfc_sermon_media() {
 	if ( get_wpfc_sermon_meta('sermon_video') ) { 
-		echo '<div class="wpfc_sermon-video cf">';
+		echo '<div class="wpfc_sermon-video cf col-1">';
 			echo do_shortcode( get_wpfc_sermon_meta('sermon_video')); 
 		echo '</div>';								
 	}
+	echo '<div id="wpfc-attachments" class="cf col-2">';
+	echo '<p><strong>'.__( 'Download Files', 'sermon-manager').'</strong>';
+	if ( get_wpfc_sermon_meta('sermon_audio') ) {
+		echo '<a href="' . get_wpfc_sermon_meta('sermon_audio') . '" class="sermon-attachments">'.__( 'MP3', 'sermon-manager').'</a>';
+	}
+	if ( get_wpfc_sermon_meta('sermon_docx') ) {
+		echo '<a href="' . get_wpfc_sermon_meta('sermon_docx') . '" class="sermon-attachments">'.__( 'Study Questions Word(docx)', 'sermon-manager').'</a>';
+	}
+	if ( get_wpfc_sermon_meta('sermon_pdf') ) {
+		echo '<a href="' . get_wpfc_sermon_meta('sermon_pdf') . '" class="sermon-attachments">'.__( 'Study Questions print(pdf)', 'sermon-manager').'</a>';
+		}
+	echo '</p>';
+	echo '</div>';
+	
+	if ( get_wpfc_sermon_meta('sermon_audio') ) {
+		echo '<div class="wpfc_sermon-audio cf">';
+			$mp3_url = get_wpfc_sermon_meta('sermon_audio');
+			$attr = array(
+				'src'      => $mp3_url,
+				'preload' => 'none'
+			);
+		echo wp_audio_shortcode( $attr );
+		echo '</div>';
+	}
+}
+
+// legacy function
+function wpfc_sermon_files() {
+	do_action ( 'sermon_media' );
 }
 
 function wpfc_sermon_download_files() {
@@ -337,7 +345,6 @@ function wpfc_sermon_download_files() {
 		echo '</p>';
 		echo '</div>';
 }
-
 
 // render additional files
 function wpfc_sermon_attachments() {
@@ -377,12 +384,17 @@ function wpfc_sermon_attachments() {
 	}
 }
 
-// render single sermon entry
+// legacy function
 function render_wpfc_sermon_single() { 
+	do_action( 'sermon_single' );
+}
+
+// single sermon action
+function wpfc_sermon_single() { 
 	global $post; ?>
 		<div class="wpfc_sermon cf">
 		<?php
-			wpfc_sermon_files();
+			do_action ( 'sermon_media' );
 			wpfc_sermon_meta('bible_passage', '<span class="bible_passage">'.__( 'Bible Text: ', 'sermon-manager'), '</span> | ');
 			echo the_terms( $post->ID, 'wpfc_preacher',  '<span class="preacher_name">', ', ', '</span>');
 			wpfc_sermon_description();
@@ -407,7 +419,6 @@ function render_wpfc_sermon_single() {
 			</p>
 		</div>
 	</div>
-	<?php do_shortcode('[social]');?>
 <script>
 	var refTagger = {
 		settings: {
@@ -428,9 +439,14 @@ function render_wpfc_sermon_single() {
 </script>
 <?php
 }
+add_action ( 'sermon_single', 'wpfc_sermon_single' );
 
 // render single sermon entry
 function render_wpfc_sermon_excerpt() { 
+	do_action( 'sermon_excerpt' );
+}
+
+function wpfc_sermon_excerpt() { 
 	global $post;?>
 	<div class="wpfc_sermon_wrap cf">
 		<div class="wpfc_sermon_image">
@@ -473,6 +489,7 @@ function render_wpfc_sermon_excerpt() {
 </script>
 	<?php 
 }
+add_action( 'sermon_excerpt', 'wpfc_sermon_excerpt' );
 
 // Add sermon content
 add_filter('the_content', 'add_wpfc_sermon_content');
