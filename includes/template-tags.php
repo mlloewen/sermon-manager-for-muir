@@ -311,10 +311,20 @@ function wpfc_sermon_media() {
 	echo '</div>';
 	
 	if ( get_wpfc_sermon_meta('sermon_audio') ) {
-		echo '<div class="wpfc_sermon-audio cf">';
+		echo '<div class="wpfc_sermon-audio cf">mp3';
 			$mp3_url = get_wpfc_sermon_meta('sermon_audio');
 			$attr = array(
 				'src'      => $mp3_url,
+				'preload' => 'none'
+			);
+		echo wp_audio_shortcode( $attr );
+		echo '</div>';
+	}
+    if ( get_wpfc_sermon_meta('sermon_audio_opus') ) {
+		echo '<div class="wpfc_sermon-audio cf">opus';
+			$opus_url = get_wpfc_sermon_meta('sermon_audio_opus');
+			$attr = array(
+				'src'      => $opus_url,
 				'preload' => 'none'
 			);
 		echo wp_audio_shortcode( $attr );
@@ -372,6 +382,9 @@ function wpfc_sermon_attachments() {
 		echo '<p><strong>'.__( 'Download Files', 'sermon-manager').'</strong>';
 			if ( get_wpfc_sermon_meta('sermon_audio') ) {
 					echo '<a href="' . get_wpfc_sermon_meta('sermon_audio') . '" class="sermon-attachments">'.__( 'MP3', 'sermon-manager').'</a>';
+			}
+            if ( get_wpfc_sermon_meta('sermon_audio_opus') ) {
+					echo '<a href="' . get_wpfc_sermon_meta('sermon_audio_opus') . '" class="sermon-attachments">'.__( 'OPUS', 'sermon-manager').'</a>';
 			}
 			if ( get_wpfc_sermon_meta('sermon_docx') ) {
 					echo '<a href="' . get_wpfc_sermon_meta('sermon_docx') . '" class="sermon-attachments">'.__( 'Study Questions(docx, print)', 'sermon-manager').'</a>';
