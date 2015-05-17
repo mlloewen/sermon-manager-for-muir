@@ -303,6 +303,12 @@ function wpfc_sermon_metaboxes( array $meta_boxes ) {
 				'id'   => 'sermon_audio',
 				'type' => 'file',
 			),
+            array(
+				'name' => __('Location of opus', 'sermon-manager'),
+				'desc' => __('Upload an audio file or enter an URL.', 'sermon-manager'),
+				'id'   => 'sermon_audio_opus',
+				'type' => 'file',
+			),
 			// Added the ability to edit the length of the MP3 audio
 			array(
 				'name' => __('MP3 Duration', 'sermon-manager'),
