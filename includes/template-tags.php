@@ -297,19 +297,7 @@ function wpfc_sermon_media() {
 		echo '</div>';								
 	}
 	echo '<div id="wpfc-attachments" class="cf col-2">';
-	echo '<p><strong>'.__( 'Download Files', 'sermon-manager').'</strong>';
-	if ( get_wpfc_sermon_meta('sermon_audio') ) {
-		echo '<a href="' . get_wpfc_sermon_meta('sermon_audio') . '" class="sermon-attachments">'.__( 'MP3', 'sermon-manager').'</a>';
-	}
-	if ( get_wpfc_sermon_meta('sermon_docx') ) {
-		echo '<a href="' . get_wpfc_sermon_meta('sermon_docx') . '" class="sermon-attachments">'.__( 'Study Questions Word(docx)', 'sermon-manager').'</a>';
-	}
-	if ( get_wpfc_sermon_meta('sermon_pdf') ) {
-		echo '<a href="' . get_wpfc_sermon_meta('sermon_pdf') . '" class="sermon-attachments">'.__( 'Study Questions print(pdf)', 'sermon-manager').'</a>';
-		}
-	echo '</p>';
-	echo '</div>';
-	
+	wpfc_sermon_download_files();
 	if ( get_wpfc_sermon_meta('sermon_audio') ) {
 		echo '<div class="wpfc_sermon-audio cf">';
 			$mp3_url = get_wpfc_sermon_meta('sermon_audio');
@@ -320,16 +308,6 @@ function wpfc_sermon_media() {
 		echo wp_audio_shortcode( $attr );
 		echo '</div>';
 	}
- /*   if ( get_wpfc_sermon_meta('sermon_audio_opus') ) {
-		echo '<div class="wpfc_sermon-audio cf">opus';
-			$opus_url = get_wpfc_sermon_meta('sermon_audio_opus');
-			$attr = array(
-				'src'      => $opus_url,
-				'preload' => 'none'
-			);
-		echo wp_audio_shortcode( $attr );
-		echo '</div>';
-	}*/
 }
 
 // legacy function
@@ -340,20 +318,22 @@ function wpfc_sermon_files() {
 function wpfc_sermon_download_files() {
 	if ( !get_wpfc_sermon_meta('sermon_audio') && !get_wpfc_sermon_meta('sermon_audio') && !get_wpfc_sermon_meta('sermon_docx') && !get_wpfc_sermon_meta('sermon_pdf')  ){
 		return;	
-	}	
-	echo '<div id="wpfc-attachments" class="cf">';
-		echo '<p><strong>'.__( 'Download Files', 'sermon-manager').'</strong>';
-			if ( get_wpfc_sermon_meta('sermon_audio') ) {
-					echo '<a href="' . get_wpfc_sermon_meta('sermon_audio') . '" class="sermon-attachments">'.__( 'MP3', 'sermon-manager').'</a>';
-			}
-			if ( get_wpfc_sermon_meta('sermon_docx') ) {
-					echo '<a href="' . get_wpfc_sermon_meta('sermon_docx') . '" class="sermon-attachments">'.__( 'Study Questions Word(docx)', 'sermon-manager').'</a>';
-			}
-			if ( get_wpfc_sermon_meta('sermon_pdf') ) {
-					echo '<a href="' . get_wpfc_sermon_meta('sermon_pdf') . '" class="sermon-attachments">'.__( 'Study Questions print(pdf)', 'sermon-manager').'</a>';
-			}
-		echo '</p>';
-		echo '</div>';
+	}
+    echo '<p><strong>'.__( 'Download Files', 'sermon-manager').'</strong>';
+	if ( get_wpfc_sermon_meta('sermon_audio') ) {
+	   echo '<a href="' . get_wpfc_sermon_meta('sermon_audio') . '" class="sermon-attachments">'.__( 'MP3', 'sermon-manager').'</a>';
+	}
+    if ( get_wpfc_sermon_meta('sermon_audio_opus') ) {
+        echo '<a href="' . get_wpfc_sermon_meta('sermon_audio_opus') . '" class="sermon-attachments">'.__( 'OPUS', 'sermon-manager').'</a>';
+    }
+	if ( get_wpfc_sermon_meta('sermon_docx') ) {
+	   echo '<a href="' . get_wpfc_sermon_meta('sermon_docx') . '" class="sermon-attachments">'.__( 'Study Questions Word(docx)', 'sermon-manager').'</a>';
+    }
+	if ( get_wpfc_sermon_meta('sermon_pdf') ) {
+	   echo '<a href="' . get_wpfc_sermon_meta('sermon_pdf') . '" class="sermon-attachments">'.__( 'Study Questions print(pdf)', 'sermon-manager').'</a>';
+    }
+	echo '</p>';
+	echo '</div>';
 }
 
 // render additional files
@@ -378,22 +358,8 @@ function wpfc_sermon_attachments() {
 		echo '</p>';
 		echo '</div>';
 	} else {
-		echo '<div id="wpfc-attachments" class="cf">';
-		echo '<p><strong>'.__( 'Download Files', 'sermon-manager').'</strong>';
-			if ( get_wpfc_sermon_meta('sermon_audio') ) {
-					echo '<a href="' . get_wpfc_sermon_meta('sermon_audio') . '" class="sermon-attachments">'.__( 'MP3', 'sermon-manager').'</a>';
-			}
-            if ( get_wpfc_sermon_meta('sermon_audio_opus') ) {
-					echo '<a href="' . get_wpfc_sermon_meta('sermon_audio_opus') . '" class="sermon-attachments">'.__( 'OPUS', 'sermon-manager').'</a>';
-			}
-			if ( get_wpfc_sermon_meta('sermon_docx') ) {
-					echo '<a href="' . get_wpfc_sermon_meta('sermon_docx') . '" class="sermon-attachments">'.__( 'Study Questions(docx, print)', 'sermon-manager').'</a>';
-			}
-			if ( get_wpfc_sermon_meta('sermon_pdf') ) {
-					echo '<a href="' . get_wpfc_sermon_meta('sermon_pdf') . '" class="sermon-attachments">'.__( 'Study Questions Print(pdf)', 'sermon-manager').'</a>';
-			}
-		echo '</p>';
-		echo '</div>';
+        echo '<div id="wpfc-attachments" class="cf">';
+		wpfc_sermon_download_files();
 	}
 }
 
