@@ -223,7 +223,7 @@ function wpfc_sermon_data() {
 				echo '<div id="questions" class="tab active"><br />' . do_shortcode(wpautop($data_questions)) . '</div>';
 				$active = true;
 			}
-		echo '</div>';
+		echo '</div></div>';
 	}
 }
 
@@ -291,13 +291,13 @@ function render_sermon_image($size) {
  */ 
 add_action ( 'sermon_media', 'wpfc_sermon_media', 5 );
 function wpfc_sermon_media() {
+    echo '<div id="wpfc-attachments" class="cf left-section">';
+	wpfc_sermon_download_files();
 	if ( get_wpfc_sermon_meta('sermon_video') ) { 
-		echo '<div class="wpfc_sermon-video cf col-1">';
+		echo '<div class="wpfc_sermon-video cf right-section">';
 			echo do_shortcode( get_wpfc_sermon_meta('sermon_video')); 
 		echo '</div>';								
 	}
-	echo '<div id="wpfc-attachments" class="cf col-2">';
-	wpfc_sermon_download_files();
 	if ( get_wpfc_sermon_meta('sermon_audio') ) {
 		echo '<div class="wpfc_sermon-audio cf">';
 			$mp3_url = get_wpfc_sermon_meta('sermon_audio');
@@ -338,7 +338,7 @@ function wpfc_sermon_download_files() {
 
 // render additional files
 function wpfc_sermon_attachments() {
-	global $post;
+	 global $post;
 	$args = array(
 		'post_type' => 'attachment',
 		'numberposts' => -1,
@@ -358,7 +358,7 @@ function wpfc_sermon_attachments() {
 		echo '</p>';
 		echo '</div>';
 	} else {
-        echo '<div id="wpfc-attachments" class="cf">';
+        echo '<div id="wpfc-attachments" class="cf left-section">';
 		wpfc_sermon_download_files();
 	}
 }
@@ -377,7 +377,8 @@ function wpfc_sermon_single() {
 			wpfc_sermon_meta('bible_passage', '<span class="bible_passage">'.__( 'Bible Text: ', 'sermon-manager'), '</span> | ');
 			echo the_terms( $post->ID, 'wpfc_preacher',  '<span class="preacher_name">', ', ', '</span>');
 			wpfc_sermon_description();
-			wpfc_sermon_data();	
+			wpfc_sermon_data();
+            echo '<div id="wpfc-attachments" class="cf left-section">';
 			wpfc_sermon_download_files();
 			echo the_terms( $post->ID, 'wpfc_sermon_topics', '<p class="sermon_topics">'.__( 'Topics: ', 'sermon-manager'), ',', '', '</p>' );
 	 	?>		

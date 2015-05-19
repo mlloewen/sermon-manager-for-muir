@@ -327,7 +327,7 @@ function wpfc_sermon_metaboxes( array $meta_boxes ) {
 				'name' => __('Video Embed Code', 'sermon-manager'),
 				'desc' => __('Paste your embed code for Vimeo, Youtube, or other service here', 'sermon-manager'),
 				'id'   => 'sermon_video',
-				'type' => 'textarea',
+				'type' => 'text',
 			), 
 			/* array(
 				'name' => __('Sermon Notes', 'sermon-manager'),
