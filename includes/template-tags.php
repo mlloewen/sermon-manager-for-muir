@@ -300,12 +300,18 @@ function wpfc_sermon_media() {
 	wpfc_sermon_download_files();
 	if ( get_wpfc_sermon_meta('sermon_audio') ) {
 		echo '<div class="wpfc_sermon-audio cf">';
-			$mp3_url = get_wpfc_sermon_meta('sermon_audio');
 			$attr = array(
-				'src'      => $mp3_url,
+				'src'      => get_wpfc_sermon_meta('sermon_audio'),
 				'preload' => 'none'
 			);
 		echo wp_audio_shortcode( $attr );
+		echo '</div>';
+    }
+    if ( get_wpfc_sermon_meta('sermon_audio_opus') ) {
+        echo '<div class="wpfc_sermon-audio cf">';
+			echo '<audio controls>';
+                echo '<source src="' . get_wpfc_sermon_meta('sermon_audio_opus') . '"';
+            echo '</audo>';
 		echo '</div>';
 	}
 }
