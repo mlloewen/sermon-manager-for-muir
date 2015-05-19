@@ -291,13 +291,13 @@ function render_sermon_image($size) {
  */ 
 add_action ( 'sermon_media', 'wpfc_sermon_media', 5 );
 function wpfc_sermon_media() {
-    echo '<div class="cf left-section wpfc-attachments">';
-	wpfc_sermon_download_files();
 	if ( get_wpfc_sermon_meta('sermon_video') ) { 
 		echo '<div class="wpfc_sermon-video cf right-section">';
 			echo do_shortcode( get_wpfc_sermon_meta('sermon_video')); 
 		echo '</div>';								
 	}
+    echo '<div class="cf left-section wpfc-attachments">';
+	wpfc_sermon_download_files();
 	if ( get_wpfc_sermon_meta('sermon_audio') ) {
 		echo '<div class="wpfc_sermon-audio cf">';
 			$mp3_url = get_wpfc_sermon_meta('sermon_audio');

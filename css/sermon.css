@@ -64,6 +64,7 @@
 	margin: 10px 0 10px;
 	max-width: 100%;
 	clear:both;
+    padding-right: 15px
 }
 .wpfc_sermon-video iframe, .wpfc_sermon-video embed {
 	max-width: 100%;
