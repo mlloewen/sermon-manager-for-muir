@@ -321,10 +321,10 @@ function wpfc_sermon_download_files() {
 	}
     echo '<p><strong>'.__( 'Download Files', 'sermon-manager').'</strong>';
 	if ( get_wpfc_sermon_meta('sermon_audio') ) {
-	   echo '<a href="' . get_wpfc_sermon_meta('sermon_audio') . '" class="sermon-attachments">'.__( 'MP3', 'sermon-manager').'</a>';
+	   echo '<a href="' . get_wpfc_sermon_meta('sermon_audio') . '" class="sermon-attachments">'.__( 'mp3', 'sermon-manager').'</a>';
 	}
     if ( get_wpfc_sermon_meta('sermon_audio_opus') ) {
-        echo '<a href="' . get_wpfc_sermon_meta('sermon_audio_opus') . '" class="sermon-attachments">'.__( 'OPUS', 'sermon-manager').'</a>';
+        echo '<a href="' . get_wpfc_sermon_meta('sermon_audio_opus') . '" class="sermon-attachments">'.__( 'opus', 'sermon-manager').'</a>';
     }
 	if ( get_wpfc_sermon_meta('sermon_docx') ) {
 	   echo '<a href="' . get_wpfc_sermon_meta('sermon_docx') . '" class="sermon-attachments">'.__( 'Study Questions Word(docx)', 'sermon-manager').'</a>';

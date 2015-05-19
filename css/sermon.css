@@ -207,7 +207,7 @@ padding:20px 0px 20px 10px;
     height: 16px;
 	line-height: 16px;
 }
-.wpfc-attachments a[href$='.mp3'] {
+.wpfc-attachments a[href$='.mp3'], .wpfc-attachments a[href$='.opus']  {
 	background:url(icons/audio.png) no-repeat center left;
 	padding-left:20px;
     height: 16px;
