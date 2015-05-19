@@ -291,7 +291,7 @@ function render_sermon_image($size) {
  */ 
 add_action ( 'sermon_media', 'wpfc_sermon_media', 5 );
 function wpfc_sermon_media() {
-    echo '<div id="wpfc-attachments" class="cf left-section">';
+    echo '<div class="cf left-section wpfc-attachments">';
 	wpfc_sermon_download_files();
 	if ( get_wpfc_sermon_meta('sermon_video') ) { 
 		echo '<div class="wpfc_sermon-video cf right-section">';
@@ -348,7 +348,7 @@ function wpfc_sermon_attachments() {
 	);
 	$attachments = get_posts($args);
 	if ($attachments) {
-		echo '<div id="wpfc-attachments" class="cf">';
+		echo '<div class="cf wpfc-attachments">';
 		echo '<p><strong>'.__( 'Download Files', 'sermon-manager').'</strong>';
 		foreach ($attachments as $attachment) {
 			echo '<br/><a target="_blank" href="'.wp_get_attachment_url($attachment->ID).'">';
@@ -358,7 +358,7 @@ function wpfc_sermon_attachments() {
 		echo '</p>';
 		echo '</div>';
 	} else {
-        echo '<div id="wpfc-attachments" class="cf left-section">';
+        echo '<div class="cf left-section wpfc-attachments">';
 		wpfc_sermon_download_files();
 	}
 }
@@ -378,7 +378,7 @@ function wpfc_sermon_single() {
 			echo the_terms( $post->ID, 'wpfc_preacher',  '<span class="preacher_name">', ', ', '</span>');
 			wpfc_sermon_description();
 			wpfc_sermon_data();
-            echo '<div id="wpfc-attachments" class="cf left-section">';
+            echo '<div class="cf left-section wpfc-attachments">';
 			wpfc_sermon_download_files();
 			echo the_terms( $post->ID, 'wpfc_sermon_topics', '<p class="sermon_topics">'.__( 'Topics: ', 'sermon-manager'), ',', '', '</p>' );
 	 	?>		
