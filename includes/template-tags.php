@@ -299,14 +299,14 @@ function wpfc_sermon_media() {
     echo '<div class="cf left-section wpfc-attachments">';
 	wpfc_sermon_download_files();
 
-    if ( get_wpfc_sermon_meta('sermon_audio_opus') ) {
+ /*   if ( get_wpfc_sermon_meta('sermon_audio_opus') ) {
         echo '<div class="wpfc_sermon-audio cf">';
 			echo '<audio controls>';
                 echo '<source src="' . get_wpfc_sermon_meta('sermon_audio_opus') . '"';
                echo '</audo>';
 		echo '</div>';
 	}
-
+*/
      if ( get_wpfc_sermon_meta('sermon_audio') ) {
 		echo '<div class="wpfc_sermon-audio cf">';
 			$attr = array(
@@ -316,8 +316,6 @@ function wpfc_sermon_media() {
 		echo wp_audio_shortcode( $attr );
 		echo '</div>';
     }
-
-
 }
 
 // legacy function
