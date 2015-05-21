@@ -64,6 +64,7 @@
 	margin: 10px 0 10px;
 	max-width: 100%;
 	clear:both;
+    padding-right: 15px
 }
 .wpfc_sermon-video iframe, .wpfc_sermon-video embed {
 	max-width: 100%;
@@ -184,35 +185,35 @@ padding:20px 0px 20px 10px;
 .bibly_popup_footer {display:none;}
 
 /* Styles for additional files */
-#wpfc-attachments a {
+.wpfc-attachments a {
 	display: block;
 }
 
-#wpfc-attachments a[href$='.ppt'], #wpfc-attachments a[href$='.pptx'] {
+.wpfc-attachments a[href$='.ppt'], .wpfc-attachments a[href$='.pptx'] {
 	background:url(icons/ppt.png) no-repeat center left;
 	padding-left:20px;
     height: 16px;
 	line-height: 16px;
 }
-#wpfc-attachments a[href$='.doc'], #wpfc-attachments a[href$='.rtf'], #wpfc-attachments a[href$='.docx']  {
+.wpfc-attachments a[href$='.doc'], .wpfc-attachments a[href$='.rtf'], .wpfc-attachments a[href$='.docx']  {
 	background:url(icons/word.png) no-repeat center left;
 	padding-left:20px;
     height: 16px;
 	line-height: 16px;
 }
-#wpfc-attachments a[href$='.pdf'], a.sermon-notes {
+.wpfc-attachments a[href$='.pdf'], a.sermon-notes {
 	background:url(icons/pdf.png) no-repeat center left;
 	padding-left:20px;
     height: 16px;
 	line-height: 16px;
 }
-#wpfc-attachments a[href$='.mp3'] {
+.wpfc-attachments a[href$='.mp3'], .wpfc-attachments a[href$='.opus']  {
 	background:url(icons/audio.png) no-repeat center left;
 	padding-left:20px;
     height: 16px;
 	line-height: 16px;
 }
-#wpfc-attachments a[href$='.mp4'] {
+.wpfc-attachments a[href$='.mp4'] {
 	background:url(icons/video.png) no-repeat center left;
 	padding-left:20px;
     height: 16px;
