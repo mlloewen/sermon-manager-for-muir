@@ -9,6 +9,7 @@ Author URI: http://www.wpforchurch.com/
 License: GPL2
 Text Domain: sermon-manager
 Domain Path: /languages/
+GitHub Plugin URI: https://github.com/mlloewen/muirlake-theme
 */
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
