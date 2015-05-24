@@ -316,7 +316,6 @@ function wpfc_sermon_media() {
 		echo wp_audio_shortcode( $attr );
 		echo '</div>';
     }
-    echo '</div>';
 }
 
 // legacy function
