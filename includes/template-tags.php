@@ -389,7 +389,7 @@ function wpfc_sermon_single() {
 			echo the_terms( $post->ID, 'wpfc_preacher',  '<span class="preacher_name">', ', ', '</span>');
 			wpfc_sermon_description();
 			wpfc_sermon_data();
-            if ( !get_wpfc_sermon_meta('sermon_audio') && !get_wpfc_sermon_meta('sermon_audio') && !get_wpfc_sermon_meta('sermon_docx') && !get_wpfc_sermon_meta('sermon_pdf')  ){
+            if ( get_wpfc_sermon_meta('sermon_audio') || get_wpfc_sermon_meta('sermon_audio') || get_wpfc_sermon_meta('sermon_docx') || get_wpfc_sermon_meta('sermon_pdf')  ){
                 echo '<div class="cf left-section wpfc-attachments">';
 			    wpfc_sermon_download_files();
             }
