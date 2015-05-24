@@ -314,8 +314,9 @@ function wpfc_sermon_media() {
 				'preload' => 'none'
 			);
 		echo wp_audio_shortcode( $attr );
-		echo '</div></div>';
+		echo '</div>';
     }
+    echo '</div>';
 }
 
 // legacy function
