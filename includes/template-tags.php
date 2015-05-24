@@ -296,7 +296,7 @@ function wpfc_sermon_media() {
 			echo do_shortcode( get_wpfc_sermon_meta('sermon_video')); 
 		echo '</div>';								
 	}
-    if ( !get_wpfc_sermon_meta('sermon_audio') && !get_wpfc_sermon_meta('sermon_audio') && !get_wpfc_sermon_meta('sermon_docx') && !get_wpfc_sermon_meta('sermon_pdf')  ){
+    if ( get_wpfc_sermon_meta('sermon_audio') || get_wpfc_sermon_meta('sermon_audio') || !get_wpfc_sermon_meta('sermon_docx') || get_wpfc_sermon_meta('sermon_pdf')  ){
        echo '<div class="cf left-section wpfc-attachments">';
 	   wpfc_sermon_download_files();
     }
@@ -367,7 +367,7 @@ function wpfc_sermon_attachments() {
 		echo '</p>';
 		echo '</div>';
 	} else {
-        if ( !get_wpfc_sermon_meta('sermon_audio') && !get_wpfc_sermon_meta('sermon_audio') && !get_wpfc_sermon_meta('sermon_docx') && !get_wpfc_sermon_meta('sermon_pdf')  ){
+        if ( get_wpfc_sermon_meta('sermon_audio') || get_wpfc_sermon_meta('sermon_audio') || get_wpfc_sermon_meta('sermon_docx') || get_wpfc_sermon_meta('sermon_pdf')  ){
                 echo '<div class="cf left-section wpfc-attachments">';
 			    wpfc_sermon_download_files();
         }
