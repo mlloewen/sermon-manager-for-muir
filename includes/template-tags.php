@@ -296,9 +296,10 @@ function wpfc_sermon_media() {
 			echo do_shortcode( get_wpfc_sermon_meta('sermon_video')); 
 		echo '</div>';								
 	}
-    echo '<div class="cf left-section wpfc-attachments">';
-	wpfc_sermon_download_files();
-
+    if ( !get_wpfc_sermon_meta('sermon_audio') && !get_wpfc_sermon_meta('sermon_audio') && !get_wpfc_sermon_meta('sermon_docx') && !get_wpfc_sermon_meta('sermon_pdf')  ){
+       echo '<div class="cf left-section wpfc-attachments">';
+	   wpfc_sermon_download_files();
+    }
  /*   if ( get_wpfc_sermon_meta('sermon_audio_opus') ) {
         echo '<div class="wpfc_sermon-audio cf">';
 			echo '<audio controls>';
