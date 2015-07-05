@@ -76,4 +76,15 @@ MEDIUM VIEWPORT
 	.tabs ul {
 		margin: 0 0 1.5em 2em;
 	}
+    .tab-content {
+        padding: 15px;
+    }
+}
+/*--------------------------------------------------------------
+LARGE VIEWPORT
+--------------------------------------------------------------*/
+@media screen and (min-width: 1050px) {
+   .tab-content {
+        padding: 30px;
+    }
 }
